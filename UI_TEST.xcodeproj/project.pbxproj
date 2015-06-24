@@ -76,6 +76,11 @@
 		248A757B1B33EAAB00A7CB96 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 248A753B1B33EAAB00A7CB96 /* LoginViewController.m */; };
 		248A757C1B33EAAB00A7CB96 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 248A753D1B33EAAB00A7CB96 /* MoreViewController.m */; };
 		248A757D1B33EAAB00A7CB96 /* RecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 248A753F1B33EAAB00A7CB96 /* RecommendViewController.m */; };
+		24CB8FCA1B3AD0EA001CBCCB /* DetaiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CB8FC91B3AD0EA001CBCCB /* DetaiViewController.m */; };
+		24CB8FD41B3ADA0A001CBCCB /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CB8FD21B3ADA0A001CBCCB /* CustomTableViewCell.m */; };
+		24CB8FD51B3ADA0A001CBCCB /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24CB8FD31B3ADA0A001CBCCB /* CustomTableViewCell.xib */; };
+		24CB8FD81B3ADA58001CBCCB /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CB8FD71B3ADA58001CBCCB /* NextViewController.m */; };
+		24CB8FDB1B3AE858001CBCCB /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CB8FDA1B3AE858001CBCCB /* UserData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +174,15 @@
 		248A753D1B33EAAB00A7CB96 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoreViewController.m; path = ../MoreViewController.m; sourceTree = "<group>"; };
 		248A753E1B33EAAB00A7CB96 /* RecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecommendViewController.h; path = ../RecommendViewController.h; sourceTree = "<group>"; };
 		248A753F1B33EAAB00A7CB96 /* RecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecommendViewController.m; path = ../RecommendViewController.m; sourceTree = "<group>"; };
+		24CB8FC81B3AD0EA001CBCCB /* DetaiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetaiViewController.h; sourceTree = "<group>"; };
+		24CB8FC91B3AD0EA001CBCCB /* DetaiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetaiViewController.m; sourceTree = "<group>"; };
+		24CB8FD11B3ADA0A001CBCCB /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		24CB8FD21B3ADA0A001CBCCB /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		24CB8FD31B3ADA0A001CBCCB /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		24CB8FD61B3ADA58001CBCCB /* NextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NextViewController.h; path = ../NextViewController.h; sourceTree = "<group>"; };
+		24CB8FD71B3ADA58001CBCCB /* NextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NextViewController.m; path = ../NextViewController.m; sourceTree = "<group>"; };
+		24CB8FD91B3AE858001CBCCB /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		24CB8FDA1B3AE858001CBCCB /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,6 +474,8 @@
 			children = (
 				248A753A1B33EAAB00A7CB96 /* LoginViewController.h */,
 				248A753B1B33EAAB00A7CB96 /* LoginViewController.m */,
+				24CB8FD91B3AE858001CBCCB /* UserData.h */,
+				24CB8FDA1B3AE858001CBCCB /* UserData.m */,
 			);
 			name = "登录";
 			sourceTree = "<group>";
@@ -478,6 +494,8 @@
 			children = (
 				248A753E1B33EAAB00A7CB96 /* RecommendViewController.h */,
 				248A753F1B33EAAB00A7CB96 /* RecommendViewController.m */,
+				24CB8FC81B3AD0EA001CBCCB /* DetaiViewController.h */,
+				24CB8FC91B3AD0EA001CBCCB /* DetaiViewController.m */,
 			);
 			name = "推荐";
 			sourceTree = "<group>";
@@ -496,6 +514,11 @@
 			children = (
 				248A74EC1B33EAAB00A7CB96 /* ScenicViewController.h */,
 				248A74ED1B33EAAB00A7CB96 /* ScenicViewController.m */,
+				24CB8FD61B3ADA58001CBCCB /* NextViewController.h */,
+				24CB8FD71B3ADA58001CBCCB /* NextViewController.m */,
+				24CB8FD11B3ADA0A001CBCCB /* CustomTableViewCell.h */,
+				24CB8FD21B3ADA0A001CBCCB /* CustomTableViewCell.m */,
+				24CB8FD31B3ADA0A001CBCCB /* CustomTableViewCell.xib */,
 			);
 			name = "景点";
 			sourceTree = "<group>";
@@ -611,6 +634,7 @@
 				248A755B1B33EAAB00A7CB96 /* 宽窄巷子3.jpg in Resources */,
 				248A75531B33EAAB00A7CB96 /* goodwoods_coffee_logo.png in Resources */,
 				248A756B1B33EAAB00A7CB96 /* 熊猫基地2.jpg in Resources */,
+				24CB8FD51B3ADA0A001CBCCB /* CustomTableViewCell.xib in Resources */,
 				248A756A1B33EAAB00A7CB96 /* 熊猫基地1.jpg in Resources */,
 				248A75651B33EAAB00A7CB96 /* 武侯祠.jpg in Resources */,
 				248A75551B33EAAB00A7CB96 /* winshare_detail.png in Resources */,
@@ -658,12 +682,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				248A74CE1B33EA6800A7CB96 /* ViewController.m in Sources */,
+				24CB8FCA1B3AD0EA001CBCCB /* DetaiViewController.m in Sources */,
 				248A75401B33EAAB00A7CB96 /* ScenicViewController.m in Sources */,
 				248A757B1B33EAAB00A7CB96 /* LoginViewController.m in Sources */,
+				24CB8FD81B3ADA58001CBCCB /* NextViewController.m in Sources */,
 				248A757A1B33EAAB00A7CB96 /* FirstViewController.m in Sources */,
+				24CB8FD41B3ADA0A001CBCCB /* CustomTableViewCell.m in Sources */,
 				248A74CB1B33EA6800A7CB96 /* AppDelegate.m in Sources */,
 				248A757D1B33EAAB00A7CB96 /* RecommendViewController.m in Sources */,
 				248A757C1B33EAAB00A7CB96 /* MoreViewController.m in Sources */,
+				24CB8FDB1B3AE858001CBCCB /* UserData.m in Sources */,
 				248A74C81B33EA6800A7CB96 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +889,7 @@
 				248A74E71B33EA6800A7CB96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		248A74E81B33EA6800A7CB96 /* Build configuration list for PBXNativeTarget "UI_TESTTests" */ = {
 			isa = XCConfigurationList;
@@ -869,6 +898,7 @@
 				248A74EA1B33EA6800A7CB96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

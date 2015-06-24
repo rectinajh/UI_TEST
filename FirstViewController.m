@@ -62,7 +62,7 @@
     // 添加到视图
     [_scrollView addSubview:_imageView];
     // 设置时间，响应事件：根据时间切换图片
-    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleTimerEvent:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(handleTimerEvent:) userInfo:nil repeats:YES];
     
     // 创建第一个文本描述
     UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, width, 100)];

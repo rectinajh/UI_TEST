@@ -7,11 +7,13 @@
 //
 
 #import "MoreViewController.h"
+#import "UserData.h"
 
 @interface MoreViewController ()
 
 - (void)initializeInterFace;
 
+@property(strong ,nonatomic)UserData *userData;
 
 @end
 
@@ -27,6 +29,9 @@
 - (void)initializeInterFace
 {
     self.title = @"更多";
+    
+    //初始化单例
+    _userData = [UserData shareInstance];
     
     //三，创建UIImageView
     UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(80, 80, 200, 170)];
@@ -75,8 +80,10 @@
 
 }
 
-- (void)handleEvent:(UISlider *)sender
+- (void)handleEvent:(UISlider *)slider
 {
+    _userData.audioPlayer.volume = slider.value;
+    
 
 }
 
