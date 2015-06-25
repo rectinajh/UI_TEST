@@ -11,15 +11,10 @@
 @interface NextViewController : UIViewController
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-
 @property (nonatomic, strong) UIImageView *imageView;
-
 @property (nonatomic, strong) NSMutableArray *imageList;
-
 @property (nonatomic, strong) UITextView *textView;
-
-@property (nonatomic, strong)NSString *string;
-
+@property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSString *titleString;
 
 

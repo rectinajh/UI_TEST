@@ -9,11 +9,21 @@
 #import "FirstViewController.h"
 #import "AppDelegate.h"
 
+#define Image(name) [UIImage imageNamed:name]
+
+
+//#define TEXT_ONE @"       成都，简称“蓉”，四川省省会，副省级市，国家区域中心城市（西南），1993年被国务院确定为西南地区的科技、商贸、金融中心和交通及通信枢纽，综合实力西部第一。"
+//#define TEXT_TWO @"       成都位于中国华西地区东部，西南地区最大平原——成都平原腹地，境内地势平坦、河网纵横、物产丰富、水系发达，自古就有“天府之国”的美誉，是国家首批历史文化名城和中国最佳旅游城市。"
+//#define TEXT_THERE @"       成都有着4500余年的文明史，2600年左右的建城史。三国蜀汉、五代前后蜀及北宋李顺、明末张献忠大西等割据政权先后在此建都，唐朝和中华民国时曾作为临时首都而存在。早在北宋年间成都人联合发行了世界最早的纸币“交子”，官府在成都设立了世界最早的管理储蓄银行“交子务”。"
+
+
 @interface FirstViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSArray           *datasource;
 @property (nonatomic, strong) UIScrollView      *scrollView;
 @property (nonatomic, strong) UIImageView       *imageView;
+@property (nonatomic, strong) NSTimer           *timer;
+@property (nonatomic , strong)NSArray           *imageNameList;
 
 - (void)initializeDataSource;
 - (void)initializeInterFace;
@@ -27,20 +37,52 @@
     // Do any additional setup after loading the view.
     [self initializeInterFace];
     [self initializeDataSource];
-
-   
 }
+
+- (instancetype)init {
+    
+    self = [super init];
+    if (self) {
+        
+        //配置标签
+        UITabBarItem *tab = [[UITabBarItem alloc] initWithTitle:@"乐行于蜀" image:Image(@"icon_menu_hp_press") selectedImage:Image(@"icon_menu_hp_selected")];
+        
+        self.tabBarItem = tab;
+    }
+    return self;
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    //计时器
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
+}
+
 //初始化数据
 - (void)initializeDataSource
 {
-    _datasource = @[[UIImage imageNamed:@"首页1"],[UIImage imageNamed:@"首页2"],[UIImage imageNamed:@"首页3"]];
+    //图片数组
+    _imageNameList = @[@"首页1", @"首页2", @"首页3"];
+    //_datasource = @[[UIImage imageNamed:@"首页1"],[UIImage imageNamed:@"首页2"],[UIImage imageNamed:@"首页3"]];
 }
+
+
 
 - (void)initializeInterFace
 {
     
+    
     //设置标题
-    self.title = @"乐行于蜀";
+//    self.title = @"乐行于蜀";
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.bounds = CGRectMake(0, 0, 100, 100);
+    titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:22];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text =@"乐行于蜀";
+    self.navigationItem.titleView = titleLabel;
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:22], NSFontAttributeName, nil]];
     
     //设置导航栏背景颜色
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.482 green:0.000 blue:0.005 alpha:1.000];
@@ -55,14 +97,15 @@
     _scrollView.contentSize = CGSizeMake(width, 1140);
     [self.view addSubview:_scrollView];
     
+    #pragma 滚动图片
     // 创建可变图片视图
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, 200)];
     // 设置显示图片
     _imageView.image = _datasource[0];
     // 添加到视图
     [_scrollView addSubview:_imageView];
-    // 设置时间，响应事件：根据时间切换图片
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(handleTimerEvent:) userInfo:nil repeats:YES];
+//    // 设置时间，响应事件：根据时间切换图片
+    //[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleTimerEvent:) userInfo:nil repeats:YES];
     
     // 创建第一个文本描述
     UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, width, 100)];
@@ -112,10 +155,29 @@
 }
 
 //Timer响应事件
-- (void)handleTimerEvent:(NSTimer *)timer
-{
-    static int i = 1;
-    _imageView.image = _datasource[i++ % _datasource.count];
+//- (void)handleTimerEvent:(NSTimer *)timer
+//{
+//    static int i = 1;
+//    _imageView.image = _datasource[i++ % _datasource.count];
+//}
+
+- (void)changeImage {
+    
+    static int i = 0;
+    
+    UIImage *image = [UIImage imageNamed:_imageNameList[i % 3]];
+    
+    _imageView.image = image;
+    
+    i++;
 }
 
+//视图消失的时候
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [_timer invalidate];
+    
+    _timer = nil;
+    
+}
 @end

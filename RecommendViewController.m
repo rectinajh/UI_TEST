@@ -13,6 +13,7 @@
 
 @property(strong ,nonatomic) NSArray  *imageArray;
 @property(assign,nonatomic) NSInteger index;
+@property(strong, nonatomic)NSTimer     *timer;
 
 - (void)initializeInterFace;
 
@@ -20,6 +21,40 @@
 @end
 
 @implementation RecommendViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    //计时器
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blockAnimation) userInfo:nil repeats:YES];
+}
+
+- (void)blockAnimation {
+    
+    static NSInteger i = 0;
+    
+    UIButton *button = (UIButton *)[self.view viewWithTag:100 + i % 5];
+    
+    //设置button旋转动画
+    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:button cache:YES];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    i++;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    //关闭计时器
+    [_timer invalidate];
+    _timer = nil;
+    
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,40 +64,15 @@
 
 - (void)initializeInterFace
 {
-    self.title = @"推荐";
-    
-    
-    /*//添加图片事件
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button1.frame = CGRectMake(10, 70, 100, 100);
-    [button1 setImage:[UIImage imageNamed:@"theplace_coffee_logo"] forState:UIControlStateNormal];
-    [self.view addSubview:button1];
-    [button1 addTarget:self action:@selector(handleImage1Event:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button2.frame = CGRectMake(130, 70, 100, 100);
-    [button2 setImage:[UIImage imageNamed:@"starbucks_coffee_logo"] forState:UIControlStateNormal];
-    [self.view addSubview:button2];
-    [button2 addTarget:self action:@selector(handleImage2Event:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button3.frame = CGRectMake(250, 70, 100, 100);
-    [button3 setImage:[UIImage imageNamed:@"man_coffee_logo"] forState:UIControlStateNormal];
-    [self.view addSubview:button3];
-    [button3 addTarget:self action:@selector(handleImage3Event:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button4.frame = CGRectMake(10, 180, 100, 100);
-    [button4 setImage:[UIImage imageNamed:@"goodwoods_coffee_logo"] forState:UIControlStateNormal];
-    [self.view addSubview:button4];
-    [button4 addTarget:self action:@selector(handleImage4Event:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *button5 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button5.frame = CGRectMake(130, 180, 100, 100);
-    [button5 setImage:[UIImage imageNamed:@"winshare_logo"] forState:UIControlStateNormal];
-    [self.view addSubview:button5];
-    [button5 addTarget:self action:@selector(handleImage5Event:) forControlEvents:UIControlEventTouchUpInside];*/
-    
+//    self.title = @"推荐";
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.bounds = CGRectMake(0, 0, 100, 100);
+    titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:22];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text =@"推荐";
+    self.navigationItem.titleView = titleLabel;
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:22], NSFontAttributeName, nil]];
     
     self.index = 0;
     //图片数组名
@@ -83,10 +93,28 @@
         }
     }
     //开始动画
-    [self startAnimation];
+//    [self startAnimation];
     
 }
 
+
+//- (void)buttonPress:(UIButton *)sender {
+//    
+//    DownViewController *dvc = [[DownViewController alloc] init];
+//    
+//    int index = (int)sender.tag - 100;
+//    //根据tag值给button加图片
+//    dvc.photoImageView.image = [UIImage imageNamed:_imagePushList[index]];
+//    
+//    //根据text文本获取文字
+//    NSString * str = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_textPush[index] ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+//    
+//    dvc.textView.text = str;
+//    
+//    //页面推送
+//    [self.navigationController pushViewController:dvc animated:YES];
+//    
+//}
 
 //图标点击事件
 - (void)handleButtonEvent:(UIButton *)sender
@@ -124,44 +152,44 @@
 }
 
 
-- (void)startAnimation
-{
-    //高级动画
-    //    CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"transform.rotaion.y"];
-    //    basic.toValue = @(M_PI);
-    //    basic.duration = 1;
-    //    basic.repeatCount = 20;
-    //    basic.autoreverses = YES;
-    //    [self.button.layer addAnimation:basic forKey:@""];
-    
-    //动画块
-//    [UIView transitionWithView:@"position" duration:1 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
-//        self.transform = CGAffineTransformIdentity;
-//        
-//    } completion:nil];
-    //设置开始标识
-    [UIView beginAnimations:@"position" context:nil];
-    //配置动画延时
-    [UIView setAnimationDelay:0];
-    //配置动画时长
-    [UIView setAnimationDuration:1];
-    //配置动画线性规律
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    //设置代理
-    [UIView setAnimationDelegate:self];
-    //动画执行逻辑
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:[self.view viewWithTag:100 + _index % 5] cache:YES];
-    //提交动画
-    [UIView commitAnimations];
+//- (void)startAnimation
+//{
+//    //高级动画
+//    //    CABasicAnimation *basic = [CABasicAnimation animationWithKeyPath:@"transform.rotaion.y"];
+//    //    basic.toValue = @(M_PI);
+//    //    basic.duration = 1;
+//    //    basic.repeatCount = 20;
+//    //    basic.autoreverses = YES;
+//    //    [self.button.layer addAnimation:basic forKey:@""];
+//    
+//    //动画块
+////    [UIView transitionWithView:@"position" duration:1 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+////        self.transform = CGAffineTransformIdentity;
+////        
+////    } completion:nil];
+//    //设置开始标识
+//    [UIView beginAnimations:@"position" context:nil];
+//    //配置动画延时
+//    [UIView setAnimationDelay:0];
+//    //配置动画时长
+//    [UIView setAnimationDuration:1];
+//    //配置动画线性规律
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//    //设置代理
+//    [UIView setAnimationDelegate:self];
+//    //动画执行逻辑
+//    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:[self.view viewWithTag:100 + _index % 5] cache:YES];
+//    //提交动画
+//    [UIView commitAnimations];
+//
+//
+//}
 
-
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
-    [self startAnimation];
-    _index ++;
-}
+//- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+//{
+//    [self startAnimation];
+//    _index ++;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

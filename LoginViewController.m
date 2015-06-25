@@ -11,12 +11,15 @@
 #import "RecommendViewController.h"
 #import "ScenicViewController.h"
 #import "MoreViewController.h"
+#import "UserData.h"
 
 // 引入相应的框架
 @import AVFoundation;
 
 @interface LoginViewController ()<UITextFieldDelegate,UIAlertViewDelegate,AVAudioPlayerDelegate>
-
+{
+    UserData *_userData;
+}
 @property (strong, nonatomic) UITextField *usernameTextField;
 @property (strong, nonatomic) UITextField *passwordTextField;
 @property (strong, nonatomic) UIActivityIndicatorView *indicatorView;
@@ -35,26 +38,64 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self initializeUserInterface];
-    [self initializeDataSource];
+//    [self initializeDataSource];
+}
+//
+//- (void)initializeDataSource
+//{
+//    //1,创建URL
+//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"background" withExtension:@"mp3"];
+//    //2,创建player
+//    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+//    //放入缓存池
+//    [self.player  prepareToPlay];
+//    //设置代理
+//    self.player.delegate = self;
+//    //设置音量(0-1)
+//    self.player.volume = 1;
+//    
+//}
+
+//背景音乐播放方法
+- (void)initializeAudioPlayerWithName:(NSString *)musicName {
+    
+    if (musicName == nil) {
+        
+        return;
+    }
+    NSURL *musicUrl = [[NSBundle mainBundle] URLForResource:musicName withExtension:@"mp3"];
+    
+    NSError *error = nil;
+    
+    _userData.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:&error];
+    
+    _userData.audioPlayer.numberOfLoops = -1;
+    
+    [_userData.audioPlayer prepareToPlay];
+    
+    [_userData.audioPlayer play];
 }
 
-- (void)initializeDataSource
-{
-    //1,创建URL
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"background" withExtension:@"mp3"];
-    //2,创建player
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    //放入缓存池
-    [self.player  prepareToPlay];
-    //设置代理
-    self.player.delegate = self;
-    //设置音量(0-1)
-    self.player.volume = 0.1;
+//音效方法
+- (void)soundEffect:(NSString *)name {
     
+    //获取url
+    NSURL *url = [[NSBundle mainBundle] URLForAuxiliaryExecutable:name];
+    //创建音乐ID
+    SystemSoundID systemId = 0;
+    //进行函数调用创建系统音乐ID
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &systemId);
+    //进行音效播放
+    AudioServicesPlaySystemSound(systemId);
 }
+
+
 
 - (void)initializeUserInterface
 {
+    //初始化单例
+    _userData = [UserData shareInstance];
+    
     //创建登录框及属性
     self.usernameTextField = [[UITextField alloc]initWithFrame:CGRectMake(30, 280, self.view.frame.size.width-60, 40)];
     self.passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(30, 330, self.view.frame.size.width-60, 40)];
@@ -130,7 +171,8 @@
     return YES;
 }
 
-//点击空白处取消虚拟键盘
+
+//点击空白处取消虚拟键盘,回收键盘
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -158,6 +200,10 @@
     
     //判断用户名和密码是否正确
     if ([[NSString stringWithFormat:@"admin"] isEqualToString:_usernameTextField.text] && [[NSString stringWithFormat:@"123456"] isEqualToString:_passwordTextField.text]) {
+        
+        _userData.name = _usernameTextField.text;
+        
+        _userData.password = _passwordTextField.text;
         
         //延迟调用方法
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -240,6 +286,7 @@
             [self.indicatorView stopAnimating];
             
 #pragma mark - 背景音乐播放
+            [self initializeAudioPlayerWithName:@"background"];
             if ([self.player isPlaying]) {
                 [self.player pause];
             } else {
